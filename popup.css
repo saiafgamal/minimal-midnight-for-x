@@ -1,0 +1,200 @@
+@font-face {
+  font-family: "Noto Naskh Arabic";
+  src: url("fonts/NotoNaskhArabic-wght.ttf") format("truetype");
+  font-weight: 100 900;
+}
+
+:root {
+  color-scheme: dark;
+  --mmx-base: #121a30;
+  --mmx-raised: #1b2540;
+  --mmx-text: #d9e3e6;
+  --mmx-muted: #a9b8c6;
+  --mmx-line: #34425c;
+  --mmx-hover: #2b3753;
+  --mmx-accent: #af904d;
+  --mmx-on-accent: #121a30;
+  --mmx-link: #89a6d4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 340px;
+  margin: 0;
+  padding: 18px 16px 16px;
+  background: var(--mmx-base);
+  color: var(--mmx-text);
+  font: 14px/1.4 "Noto Naskh Arabic", "SF Arabic", serif;
+}
+
+header {
+  margin-bottom: 12px;
+}
+
+h1 {
+  margin: 0;
+  color: var(--mmx-accent);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+header p {
+  margin: 2px 0 0;
+  color: var(--mmx-muted);
+  font-size: 12.5px;
+}
+
+section,
+details {
+  margin-top: 12px;
+  padding: 4px 12px;
+  border: 1px solid var(--mmx-line);
+  border-radius: 12px;
+  background: var(--mmx-raised);
+}
+
+h2 {
+  margin: 8px 0 2px;
+  color: var(--mmx-muted);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 38px;
+  cursor: pointer;
+}
+
+summary {
+  margin: 8px 0;
+  color: var(--mmx-muted);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+summary:hover {
+  color: var(--mmx-text);
+}
+
+.row.disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.row + .row {
+  border-top: 1px solid rgb(52 66 92 / 60%);
+}
+
+/* Switch */
+input[type="checkbox"] {
+  appearance: none;
+  flex: none;
+  position: relative;
+  width: 34px;
+  height: 20px;
+  margin: 0;
+  border-radius: 9999px;
+  background: var(--mmx-line);
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--mmx-text);
+  transition: transform 0.15s cubic-bezier(0.3, 0, 0.1, 1);
+}
+
+input[type="checkbox"]:checked {
+  background: var(--mmx-accent);
+}
+
+input[type="checkbox"]:checked::after {
+  transform: translateX(14px);
+  background: var(--mmx-on-accent);
+}
+
+input:focus-visible,
+button:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--mmx-link);
+  outline-offset: 2px;
+}
+
+/* Segmented control */
+.segmented {
+  display: flex;
+  padding: 2px;
+  border-radius: 8px;
+  background: var(--mmx-base);
+}
+
+.segmented button {
+  min-width: 34px;
+  padding: 4px 7px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--mmx-muted);
+  font: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.segmented button:hover {
+  color: var(--mmx-text);
+}
+
+.segmented button[aria-checked="true"] {
+  background: var(--mmx-hover);
+  color: var(--mmx-text);
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  min-height: 90px;
+  margin: 6px 0 10px;
+  padding: 8px;
+  border: 1px solid var(--mmx-line);
+  border-radius: 8px;
+  background: var(--mmx-base);
+  color: var(--mmx-text);
+  font: 12px/1.5 ui-monospace, "SF Mono", monospace;
+  resize: vertical;
+}
+
+.reset {
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px;
+  border: 1px solid var(--mmx-line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--mmx-muted);
+  font: inherit;
+  cursor: pointer;
+}
+
+.reset:hover {
+  background: var(--mmx-hover);
+  color: var(--mmx-text);
+}

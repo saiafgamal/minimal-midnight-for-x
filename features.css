@@ -1,0 +1,301 @@
+/* Layout features, ported from Minimal Theme for Twitter / X.
+   Minimal Theme: MIT license, Copyright (c) 2022 Mailbrew Inc.
+   Each rule keys off a data-xm-* attribute that features.js sets on <html>. */
+
+/* ---------- Timeline ---------- */
+
+/* Minimal layout: timeline beside the navigation, no right sidebar, floating Post button,
+   no messages drawer. */
+html[data-xm-minimal-layout="on"] [data-testid="DMDrawer"],
+html[data-xm-minimal-layout="on"] [data-testid="chat-drawer-root"] {
+  visibility: hidden !important;
+}
+
+@media (min-width: 1000px) {
+  /* The timeline sits next to the left navigation. */
+  html[data-xm-minimal-layout="on"] main[role="main"] {
+    align-items: flex-start !important;
+    overflow-x: clip !important;
+  }
+
+  html[data-xm-minimal-layout="on"] [data-testid="primaryColumn"] {
+    width: var(--xm-timeline-width, 700px) !important;
+    max-width: var(--xm-timeline-width, 700px) !important;
+    margin: 0 !important;
+  }
+
+  html[data-xm-minimal-layout="on"] [data-testid="primaryColumn"] > div > div:last-child,
+  html[data-xm-minimal-layout="on"] [data-testid="primaryColumn"] > div > div:last-child div:not([data-testid="dm-message-list-container"] *) {
+    max-width: unset !important;
+  }
+
+  html[data-xm-minimal-layout="on"] header[role="banner"] {
+    align-items: flex-start !important;
+  }
+
+  html[data-xm-minimal-layout="on"] header[role="banner"] > div > div > div > div:first-child {
+    flex-shrink: 1 !important;
+    overflow-y: auto !important;
+  }
+
+  html[data-xm-minimal-layout="on"] header[role="banner"] > div > div > div {
+    overflow: visible !important;
+  }
+
+  html[data-xm-minimal-layout="on"] [data-testid="SideNav_NewTweet_Button"] {
+    position: fixed !important;
+    right: 16px !important;
+    bottom: 24px !important;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 35%) !important;
+  }
+
+  html[data-xm-minimal-layout="on"]:not([data-xm-page="search"]) [data-testid="sidebarColumn"] {
+    visibility: hidden !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/* The search box floats top right when the sidebar is hidden. */
+@media (min-width: 1100px) {
+  html[data-xm-minimal-layout="on"]:not([data-xm-page="search"]) [data-testid="sidebarColumn"] form[role="search"] {
+    visibility: visible !important;
+    position: fixed !important;
+    top: 12px !important;
+    right: 16px !important;
+    width: auto !important;
+  }
+
+  html[data-xm-minimal-layout="on"]:not([data-xm-page="search"]) [data-testid="sidebarColumn"] form[role="search"] input[role="combobox"] {
+    width: 150px !important;
+  }
+
+  html[data-xm-minimal-layout="on"]:not([data-xm-page="search"]) [data-testid="sidebarColumn"] form[role="search"]:focus-within {
+    width: 374px !important;
+    backdrop-filter: blur(12px);
+  }
+
+  html[data-xm-minimal-layout="on"]:not([data-xm-page="search"]) [data-testid="sidebarColumn"] form[role="search"] input:focus {
+    width: 100% !important;
+  }
+}
+
+/* Trends float on the right of the home timeline. */
+@media (min-width: 1265px) {
+  html[data-xm-trends-home-timeline="on"][data-xm-page="home"]:not([data-xm-writer-mode="on"]) [data-testid="sidebarColumn"] section[aria-labelledby^="accessible-list-"] {
+    visibility: visible !important;
+    position: fixed !important;
+    right: 16px !important;
+    top: 70px !important;
+    width: 300px !important;
+    max-height: 78vh !important;
+    overflow: auto !important;
+    border: 1px solid var(--sifr-line) !important;
+    border-radius: 16px !important;
+    background-color: var(--sifr-raised) !important;
+  }
+
+  html[data-xm-trends-home-timeline="on"][data-xm-search-bar="hide"][data-xm-page="home"] [data-testid="sidebarColumn"] section[aria-labelledby^="accessible-list-"] {
+    top: 12px !important;
+  }
+}
+
+html[data-xm-timeline-borders="hide"] [data-testid="primaryColumn"] {
+  border-style: hidden !important;
+}
+
+html[data-xm-tweet-borders="hide"] [data-testid="cellInnerDiv"] > div {
+  border-bottom-width: 0 !important;
+}
+
+html[data-xm-tweet-borders="hide"] main section div[role="separator"] {
+  display: none !important;
+}
+
+html[data-xm-sticky-header="off"] [data-testid="primaryColumn"] > div > div:first-child {
+  position: static !important;
+}
+
+html[data-xm-timeline-tabs="hide"][data-xm-page="home"]:not([data-xm-writer-mode="on"]) [data-testid="primaryColumn"] > div > div:first-child nav[role="navigation"] {
+  display: none !important;
+}
+
+html[data-xm-remove-promoted-posts="on"] [data-testid="placementTracking"] article,
+html[data-xm-remove-promoted-posts="on"] a[href*="quick_promote_web"] {
+  display: none !important;
+}
+
+html[data-xm-remove-who-to-follow="on"] [data-testid="primaryColumn"] section[aria-labelledby^="accessible-list-"] > div[aria-label$="Carousel"],
+html[data-xm-remove-who-to-follow="on"] [data-testid="primaryColumn"] a[href*="/i/flow/topics_selector"],
+html[data-xm-remove-who-to-follow="on"] [data-testid="primaryColumn"] a[href*="/i/topics/picker/home"],
+html[data-xm-remove-who-to-follow="on"] [data-testid="primaryColumn"] [data-testid="cellInnerDiv"]:has([data-testid="UserCell"]):not([aria-label="Timeline: Following"] *):not([aria-label="Timeline: Followers"] *) {
+  display: none !important;
+}
+
+/* ---------- Writer mode ---------- */
+
+html[data-xm-writer-mode="on"][data-xm-page="home"] body {
+  overflow: hidden !important;
+}
+
+html[data-xm-writer-mode="on"][data-xm-page="home"] header[role="banner"],
+html[data-xm-writer-mode="on"][data-xm-page="home"] [data-testid="sidebarColumn"],
+html[data-xm-writer-mode="on"][data-xm-page="home"] [data-testid="SideNav_NewTweet_Button"],
+html[data-xm-writer-mode="on"][data-xm-page="home"] [data-testid="primaryColumn"] > div > div:not(:nth-of-type(-n+3)) {
+  display: none !important;
+}
+
+html[data-xm-writer-mode="on"][data-xm-page="home"] [data-testid="primaryColumn"] > div > div:first-child {
+  visibility: hidden !important;
+}
+
+html[data-xm-writer-mode="on"][data-xm-page="home"] main[role="main"] {
+  align-items: center !important;
+  flex-basis: 100% !important;
+}
+
+html[data-xm-writer-mode="on"][data-xm-page="home"] main[role="main"] > div {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+html[data-xm-writer-mode="on"][data-xm-page="home"] [data-testid="primaryColumn"] {
+  border-style: hidden !important;
+  margin: 0 auto !important;
+  padding-top: 8vh !important;
+}
+
+html[data-xm-writer-mode="on"][data-xm-page="home"] [data-testid="tweetTextarea_0"] {
+  font-size: 22px !important;
+  line-height: 1.6 !important;
+}
+
+#xm-writer-button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--sifr-link);
+  cursor: pointer;
+}
+
+#xm-writer-button:hover {
+  background-color: rgb(137 166 212 / 14%);
+}
+
+#xm-writer-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+html[data-xm-writer-mode="on"] #xm-writer-button {
+  color: var(--sifr-accent);
+}
+
+/* ---------- Post metrics ---------- */
+
+html[data-xm-view-count="hide"] [role="group"] div:has(> a[href*="/analytics"]),
+html[data-xm-view-count="hide"] [role="group"] div:has(> div > a[href*="/analytics"]) {
+  display: none !important;
+}
+
+html[data-xm-reply-count="hide"] [data-testid="reply"] span {
+  visibility: hidden !important;
+}
+
+html[data-xm-retweet-count="hide"] [href$="/retweets"],
+html[data-xm-retweet-count="hide"] [href$="/retweets/with_comments"],
+html[data-xm-retweet-count="hide"] [href$="/quotes"],
+html[data-xm-retweet-count="hide"] [data-testid="retweet"] span,
+html[data-xm-retweet-count="hide"] [data-testid="unretweet"] span {
+  visibility: hidden !important;
+}
+
+html[data-xm-like-count="hide"] [href$="/likes"][href*="/status/"],
+html[data-xm-like-count="hide"] [data-testid="like"] span,
+html[data-xm-like-count="hide"] [data-testid="unlike"] span {
+  visibility: hidden !important;
+}
+
+html[data-xm-follow-count="hide"] [href$="/following"][dir][role="link"],
+html[data-xm-follow-count="hide"] [href$="/followers"][dir][role="link"],
+html[data-xm-follow-count="hide"] [href$="/verified_followers"][dir][role="link"] {
+  display: none !important;
+}
+
+/* ---------- Navigation ---------- */
+
+html[data-xm-nav-labels="never"] header[role="banner"] nav[role="navigation"] > * > div > div + div:last-child,
+html[data-xm-nav-labels="never"] [data-testid="SideNav_AccountSwitcher_Button"] > div:not(:first-child) {
+  display: none !important;
+}
+
+html[data-xm-nav-labels="hover"] header[role="banner"] nav[role="navigation"] > * > div > div + div:last-child,
+html[data-xm-nav-labels="hover"] [data-testid="SideNav_AccountSwitcher_Button"] > div:not(:first-child) {
+  opacity: 0 !important;
+  transition: opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html[data-xm-nav-labels="hover"] header[role="banner"] nav[role="navigation"]:hover > * > div > div + div:last-child,
+html[data-xm-nav-labels="hover"] [data-testid="SideNav_AccountSwitcher_Button"]:hover > div:not(:first-child) {
+  opacity: 1 !important;
+}
+
+html[data-xm-nav-labels="hover"] header[role="banner"] nav[role="navigation"]:hover > * > div {
+  backdrop-filter: blur(12px);
+}
+
+html[data-xm-nav-center="on"] header[role="banner"] > div > div > div {
+  justify-content: center !important;
+  padding-top: 0 !important;
+}
+
+html[data-xm-unread-badge="hide"] header[role="banner"] nav[role="navigation"] a svg + div[aria-label],
+html[data-xm-unread-badge="hide"] [data-testid="SideNav_AccountSwitcher_Button"] > div > svg + div[aria-label] {
+  display: none !important;
+}
+
+html[data-xm-grok-drawer="hide"] [data-testid="GrokDrawer"] {
+  display: none !important;
+}
+
+html[data-xm-nav-logo="hide"] header[role="banner"] h1[role="heading"],
+html[data-xm-nav-home="hide"] [data-testid="AppTabBar_Home_Link"],
+html[data-xm-nav-explore="hide"] [data-testid="AppTabBar_Explore_Link"],
+html[data-xm-nav-notifications="hide"] [data-testid="AppTabBar_Notifications_Link"],
+html[data-xm-nav-messages="hide"] [data-testid="AppTabBar_DirectMessage_Link"],
+html[data-xm-nav-grok="hide"] header[role="banner"] a[href*="/grok"],
+html[data-xm-nav-history="hide"] header[role="banner"] a[href="/i/history"],
+html[data-xm-nav-creator-studio="hide"] header[role="banner"] a[href*="/creators/studio"],
+html[data-xm-nav-premium="hide"] header[role="banner"] a[href*="premium"],
+html[data-xm-nav-premium="hide"] [data-testid="premium-signup-tab"],
+html[data-xm-nav-bookmarks="hide"] header[role="banner"] a[href*="/bookmarks"],
+html[data-xm-nav-lists="hide"] header[role="banner"] a[href*="/lists"],
+html[data-xm-nav-communities="hide"] header[role="banner"] a[href*="/communities"],
+html[data-xm-nav-jobs="hide"] header[role="banner"] a[href*="/jobs"],
+html[data-xm-nav-articles="hide"] header[role="banner"] a[href*="/articles"],
+html[data-xm-nav-verified-orgs="hide"] header[role="banner"] a[href*="verified-orgs"],
+html[data-xm-nav-profile="hide"] [data-testid="AppTabBar_Profile_Link"] {
+  display: none !important;
+}
+
+/* ---------- Interface ---------- */
+
+html[data-xm-search-bar="hide"] [data-testid="sidebarColumn"] form[role="search"] {
+  display: none !important;
+}
+
+html[data-xm-transparent-search="on"] [data-testid="sidebarColumn"] form[role="search"] > div:nth-child(1) > div,
+html[data-xm-transparent-search="on"] [data-testid="SearchBox_Search_Input"] {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+html[data-xm-post-button="hide"] [data-testid="SideNav_NewTweet_Button"] {
+  visibility: hidden !important;
+}

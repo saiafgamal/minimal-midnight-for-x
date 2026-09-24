@@ -1,0 +1,388 @@
+:root {
+  color-scheme: dark !important;
+  --mmx-base: #121a30;
+  --mmx-raised: #1b2540;
+  --mmx-glow: #242e4d;
+  --mmx-text: #d9e3e6;
+  --mmx-muted: #a9b8c6;
+  --mmx-line: #34425c;
+  --mmx-hover: #2b3753;
+  --mmx-accent: #af904d;
+  --mmx-accent-hover: #c9ad71;
+  --mmx-on-accent: #121a30;
+  --mmx-link: #89a6d4;
+  --mmx-like: #d79583;
+  --mmx-repost: #78b5ad;
+  --mmx-font: var(--xm-font-family, "Noto Naskh Arabic"), "SF Arabic", serif;
+}
+
+html, body, #react-root, #react-root > div,
+[data-testid="primaryColumn"],
+[data-testid="sidebarColumn"],
+[data-testid="cellInnerDiv"],
+[data-testid="tweet"],
+[role="main"],
+[role="dialog"] {
+  background-color: var(--mmx-base) !important;
+  color: var(--mmx-text) !important;
+}
+
+body {
+  background-image: radial-gradient(ellipse 95% 75% at 14% -8%, var(--mmx-glow), transparent 78%) !important;
+  background-attachment: fixed !important;
+}
+
+body, body *:not(svg):not(path):not(video):not(canvas) {
+  font-family: var(--mmx-font) !important;
+}
+
+/* X paints much of its interface through inline RGB styles. Restrict the
+   overrides to known surface colors so media and account artwork survive. */
+[style*="background-color: rgb(0, 0, 0)"],
+[style*="background-color: rgb(21, 32, 43)"],
+[style*="background-color: rgb(22, 24, 28)"],
+[style*="background-color: rgb(255, 255, 255)"],
+[style*="background-color: rgb(247, 249, 249)"],
+[class~="r-14lw9ot"],
+[data-testid="primaryColumn"] > div,
+[data-testid="sidebarColumn"] > div {
+  background-color: var(--mmx-base) !important;
+}
+
+/* The timeline header uses a translucent white class rather than a solid
+   surface. Keep its translucency, with a Midnight tint. */
+[data-testid="primaryColumn"] [class~="r-1e5uvyk"] {
+  background-color: rgb(18 26 48 / 92%) !important;
+}
+
+nav a,
+nav a span,
+nav svg,
+h1 svg,
+[data-testid="SearchBox_Search_Input_label"] svg {
+  color: var(--mmx-text) !important;
+}
+
+nav svg,
+h1 svg,
+[data-testid="SearchBox_Search_Input_label"] svg {
+  fill: currentColor !important;
+}
+
+[data-testid="primaryColumn"],
+[data-testid="sidebarColumn"],
+[data-testid="cellInnerDiv"],
+[role="tablist"],
+[data-testid="tweet"] {
+  border-color: var(--mmx-line) !important;
+}
+
+[data-testid="cellInnerDiv"] > div {
+  border-bottom-color: rgb(217 227 230 / 12%) !important;
+}
+
+[role="dialog"],
+[data-testid="Dropdown"],
+[data-testid="SearchBox_Search_Input"],
+input, textarea {
+  background-color: var(--mmx-raised) !important;
+  color: var(--mmx-text) !important;
+  border-color: var(--mmx-line) !important;
+}
+
+[style*="color: rgb(231, 233, 234)"],
+[style*="color: rgb(15, 20, 25)"],
+[style*="color: rgb(247, 249, 249)"] {
+  color: var(--mmx-text) !important;
+}
+
+[style*="color: rgb(113, 118, 123)"],
+[style*="color: rgb(139, 152, 165)"],
+[style*="color: rgb(83, 100, 113)"] {
+  color: var(--mmx-muted) !important;
+}
+
+[data-testid="tweetText"],
+[data-testid="tweetText"] * {
+  color: var(--mmx-text) !important;
+  line-height: 1.55 !important;
+}
+
+[data-testid="tweetText"] a,
+a[href^="/hashtag/"],
+a[href^="/search?"] {
+  color: var(--mmx-link) !important;
+}
+
+[role="tab"]:hover {
+  background-color: var(--mmx-hover) !important;
+}
+
+[data-testid="cellInnerDiv"]:hover,
+[data-testid="tweet"]:hover {
+  background-color: var(--mmx-base) !important;
+}
+
+[data-testid="cellInnerDiv"]:hover > div {
+  background-color: transparent !important;
+}
+
+::placeholder {
+  color: var(--mmx-muted) !important;
+  opacity: 1;
+}
+
+::selection {
+  background: var(--mmx-accent-hover);
+  color: var(--mmx-on-accent);
+}
+
+/* X accent colors. X blue becomes Midnight slate blue, likes become coral,
+   reposts become teal. Only the compose Post button takes the gold fill. */
+[style*="color: rgb(29, 155, 240)"],
+[data-testid="icon-verified"] {
+  color: var(--mmx-link) !important;
+  fill: var(--mmx-link) !important;
+}
+
+[style*="background-color: rgb(29, 155, 240)"] {
+  background-color: var(--mmx-link) !important;
+}
+
+[style*="border-color: rgb(29, 155, 240)"] {
+  border-color: var(--mmx-link) !important;
+}
+
+[style*="background-color: rgba(29, 155, 240, 0.1)"],
+[style*="background-color: rgba(29, 155, 240, 0.2)"] {
+  background-color: rgb(137 166 212 / 14%) !important;
+}
+
+[style*="color: rgb(249, 24, 128)"],
+[data-testid="unlike"] {
+  color: var(--mmx-like) !important;
+}
+
+[style*="background-color: rgba(249, 24, 128, 0.1)"] {
+  background-color: rgb(215 149 131 / 14%) !important;
+}
+
+[style*="color: rgb(0, 186, 124)"],
+[data-testid="unretweet"] {
+  color: var(--mmx-repost) !important;
+}
+
+[style*="background-color: rgba(0, 186, 124, 0.1)"] {
+  background-color: rgb(120 181 173 / 14%) !important;
+}
+
+/* Light-filled buttons such as Follow. Keep them filled, with navy text,
+   so they do not turn into light text on a light fill. */
+[style*="background-color: rgb(239, 243, 244)"],
+[style*="background-color: rgb(15, 20, 25)"] {
+  background-color: var(--mmx-text) !important;
+  border-color: transparent !important;
+}
+
+[style*="background-color: rgb(239, 243, 244)"] *,
+[style*="background-color: rgb(15, 20, 25)"] * {
+  color: var(--mmx-on-accent) !important;
+}
+
+[data-testid="SideNav_NewTweet_Button"],
+[data-testid="tweetButtonInline"],
+[data-testid="tweetButton"] {
+  background-color: var(--mmx-accent) !important;
+  border-color: transparent !important;
+}
+
+[data-testid="SideNav_NewTweet_Button"]:hover,
+[data-testid="tweetButtonInline"]:hover,
+[data-testid="tweetButton"]:hover {
+  background-color: var(--mmx-accent-hover) !important;
+}
+
+[data-testid="SideNav_NewTweet_Button"] *,
+[data-testid="tweetButtonInline"] *,
+[data-testid="tweetButton"] * {
+  color: var(--mmx-on-accent) !important;
+}
+
+/* Light-mode X paints most colors through atomic classes, not inline styles.
+   Map those classes to Midnight tokens. Borders and dividers go quiet. */
+.r-jxzhtn, .r-1ets6dv, .r-1d6w8o1, .r-1mr45hq, .r-1ccsd61,
+.r-113pe33, .r-1lsmntn, .r-1dgieki, .r-j5o65s,
+[style*="border-bottom: 2px solid rgb(15, 20, 25)"] {
+  border-color: var(--mmx-line) !important;
+}
+
+.r-1sw30gj, .r-1bimlpy {
+  background-color: var(--mmx-line) !important;
+}
+
+.r-x572qd {
+  background-color: var(--mmx-raised) !important;
+}
+
+.r-18jsvk2, .r-54znze {
+  color: var(--mmx-text) !important;
+}
+
+.r-14j79pv {
+  color: var(--mmx-muted) !important;
+}
+
+.r-1cvl2hr {
+  color: var(--mmx-link) !important;
+}
+
+.r-vhj8yc, .r-1kqyzh3, .r-1khm80z {
+  border-color: var(--mmx-link) !important;
+}
+
+.r-l5o3uw {
+  background-color: var(--mmx-link) !important;
+}
+
+.r-1peqgm7, .r-1w2mbsr, .r-r18ze4 {
+  background-color: rgb(137 166 212 / 14%) !important;
+}
+
+.r-vkub15 {
+  color: var(--mmx-like) !important;
+}
+
+.r-o6sn0f {
+  color: var(--mmx-repost) !important;
+}
+
+.r-15azkrj {
+  background-color: rgb(120 181 173 / 14%) !important;
+}
+
+.r-1ydqjzz, .r-h9yrwi {
+  background-color: var(--mmx-hover) !important;
+}
+
+/* Dark-filled buttons such as Follow in light mode. */
+.r-1m3jxhj {
+  background-color: var(--mmx-text) !important;
+}
+
+.r-1m3jxhj * {
+  color: var(--mmx-on-accent) !important;
+}
+
+/* Disabled Post button: a quiet raised navy, not half-transparent gold. */
+[data-testid="tweetButtonInline"][disabled],
+[data-testid="tweetButtonInline"][aria-disabled="true"],
+[data-testid="tweetButton"][disabled],
+[data-testid="tweetButton"][aria-disabled="true"] {
+  background-color: var(--mmx-raised) !important;
+  border: 1px solid var(--mmx-line) !important;
+  opacity: 1 !important;
+}
+
+[data-testid="tweetButtonInline"][disabled] *,
+[data-testid="tweetButtonInline"][aria-disabled="true"] *,
+[data-testid="tweetButton"][disabled] *,
+[data-testid="tweetButton"][aria-disabled="true"] * {
+  color: var(--mmx-muted) !important;
+}
+
+/* Menus, hover cards and popovers: lift them off the page with a raised
+   surface, a quiet border and a dark shadow in place of X's light glow. */
+[role="menu"],
+[data-testid="HoverCard"],
+[data-testid="Dropdown"],
+[data-testid="typeaheadDropdown"] {
+  background-color: var(--mmx-raised) !important;
+  border: 1px solid var(--mmx-line) !important;
+  box-shadow: 0 12px 32px rgb(5 8 18 / 55%) !important;
+}
+
+[role="menu"] [role="menuitem"]:hover,
+[data-testid="Dropdown"] [role="menuitem"]:hover {
+  background-color: var(--mmx-hover) !important;
+}
+
+/* Filled slate-blue pills and badges (new posts pill, unread counts) carry
+   white text in X. White on slate fails contrast, so use navy. */
+.r-l5o3uw,
+.r-l5o3uw *,
+[data-testid="pillLabel"],
+[data-testid="pillLabel"] *,
+[style*="background-color: rgb(29, 155, 240)"] * {
+  color: var(--mmx-on-accent) !important;
+}
+
+header[role="banner"] nav a svg + div[aria-label] {
+  border-color: var(--mmx-base) !important;
+}
+
+/* Composer placeholder. */
+.public-DraftEditorPlaceholder-inner {
+  color: var(--mmx-muted) !important;
+}
+
+/* Outline buttons such as Edit profile and Follow in lists. */
+[style*="border-color: rgb(207, 217, 222)"],
+[style*="border-color: rgb(83, 100, 113)"],
+[style*="border-color: rgba(15, 20, 25, 0.1)"],
+.r-1ets6dv,
+.r-1wo6uvp {
+  border-color: var(--mmx-line) !important;
+}
+
+/* Empty profile banner and image placeholders. */
+[style*="background-color: rgb(207, 217, 222)"] {
+  background-color: var(--mmx-raised) !important;
+}
+
+/* X's red for errors, delete and live badges. */
+[style*="color: rgb(244, 33, 46)"] {
+  color: var(--mmx-like) !important;
+}
+
+[style*="background-color: rgb(244, 33, 46)"] {
+  background-color: var(--mmx-like) !important;
+}
+
+/* Toasts. */
+[data-testid="toast"] {
+  background-color: var(--mmx-raised) !important;
+  border: 1px solid var(--mmx-line) !important;
+  color: var(--mmx-text) !important;
+}
+
+[data-testid="toast"] > div:first-child,
+[data-testid="toast"] > div:first-child * {
+  color: var(--mmx-text) !important;
+}
+
+[data-testid="toast"] > div:last-child button,
+[data-testid="toast"] > div:last-child button * {
+  color: var(--mmx-accent-hover) !important;
+}
+
+/* The volume track uses X's white media controls, which the general surface
+   rule above would otherwise turn navy. Keep this control gold. */
+[data-testid="videoComponent"] :is([aria-label="Mute"], [aria-label="Unmute"]),
+[data-testid="videoComponent"] :is([aria-label="Mute"], [aria-label="Unmute"]) svg {
+  color: var(--mmx-accent-hover) !important;
+  fill: currentColor !important;
+}
+
+[data-testid="videoComponent"] div:has(> [aria-label="Volume slider"]) {
+  background-color: rgb(175 144 77 / 35%) !important;
+}
+
+[data-testid="videoComponent"] div:has(> [aria-label="Volume slider"]) > .r-1pz39u2,
+[data-testid="videoComponent"] [aria-label="Volume slider"] > div {
+  background-color: var(--mmx-accent) !important;
+}
+
+/* Thin, quiet scrollbars. */
+html {
+  scrollbar-color: var(--mmx-line) transparent;
+}
