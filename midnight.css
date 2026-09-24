@@ -13,7 +13,7 @@
   --mmx-link: #89a6d4;
   --mmx-like: #d79583;
   --mmx-repost: #78b5ad;
-  --mmx-font: var(--xm-font-family, "Noto Naskh Arabic"), "SF Arabic", serif;
+  --mmx-font: var(--xm-font-family, "Readex Pro", sans-serif);
 }
 
 html, body, #react-root, #react-root > div,

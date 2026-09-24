@@ -91,9 +91,9 @@ html[data-xm-minimal-layout="on"] [data-testid="chat-drawer-root"] {
     width: 300px !important;
     max-height: 78vh !important;
     overflow: auto !important;
-    border: 1px solid var(--sifr-line) !important;
+    border: 1px solid var(--mmx-line) !important;
     border-radius: 16px !important;
-    background-color: var(--sifr-raised) !important;
+    background-color: var(--mmx-raised) !important;
   }
 
   html[data-xm-trends-home-timeline="on"][data-xm-search-bar="hide"][data-xm-page="home"] [data-testid="sidebarColumn"] section[aria-labelledby^="accessible-list-"] {
@@ -180,7 +180,7 @@ html[data-xm-writer-mode="on"][data-xm-page="home"] [data-testid="tweetTextarea_
   border: 0;
   border-radius: 9999px;
   background: transparent;
-  color: var(--sifr-link);
+  color: var(--mmx-link);
   cursor: pointer;
 }
 
@@ -194,7 +194,7 @@ html[data-xm-writer-mode="on"][data-xm-page="home"] [data-testid="tweetTextarea_
 }
 
 html[data-xm-writer-mode="on"] #xm-writer-button {
-  color: var(--sifr-accent);
+  color: var(--mmx-accent);
 }
 
 /* ---------- Post metrics ---------- */

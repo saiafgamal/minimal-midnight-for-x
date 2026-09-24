@@ -1,7 +1,7 @@
 // Shared by the content script and the popup. Defaults follow Minimal Theme
 // for Twitter, so the extension works the same way out of the box.
 const XM_DEFAULTS = {
-  fontFamily: "notoNaskhArabic",
+  fontFamily: "readexPro",
 
   // Timeline
   minimalLayout: "on",

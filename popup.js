@@ -4,8 +4,8 @@ const SHOW = ["show", "hide"];
 const ON = ["on", "off"];
 
 const SECTIONS = [
-  ["Google Fonts", [
-    ["fontFamily", "Typeface", "choice", [["notoNaskhArabic", "Naskh"], ["notoSansArabic", "Sans"], ["notoKufiArabic", "Kufi"]]],
+  ["Typeface", [
+    ["fontFamily", "Font", "select", [["readexPro", "Readex Pro"], ["calibri", "Calibri (installed)"], ["convection", "Convection (installed)"]]],
   ]],
   ["Timeline", [
     ["minimalLayout", "Minimal layout", "toggle", ON],
@@ -99,6 +99,21 @@ function choice(key, label, options, value) {
   return row;
 }
 
+function selectChoice(key, label, options, value) {
+  const row = document.createElement("label");
+  row.className = "row";
+  const select = document.createElement("select");
+  select.setAttribute("aria-label", label);
+  for (const [optionValue, optionLabel] of options) {
+    const option = new Option(optionLabel, optionValue);
+    select.add(option);
+  }
+  select.value = options.some(([optionValue]) => optionValue === value) ? value : options[0][0];
+  select.addEventListener("change", () => save(key, select.value));
+  row.append(Object.assign(document.createElement("span"), { textContent: label }), select);
+  return row;
+}
+
 function customCss(value) {
   const section = document.createElement("section");
   section.innerHTML = '<h2>Custom CSS</h2>';
@@ -124,12 +139,18 @@ chrome.storage.sync.get(XM_DEFAULTS, (settings) => {
     const heading = Object.assign(document.createElement(folded ? "summary" : "h2"), { textContent: title });
     section.append(heading);
     for (const [key, label, type, options] of controls) {
-      const build = type === "toggle" ? toggle : choice;
+      const build = type === "toggle" ? toggle : type === "select" ? selectChoice : choice;
       const row = build(key, label, options, settings[key]);
       row.dataset.key = key;
       section.append(row);
     }
     container.append(section);
+    if (title === "Typeface") {
+      const hint = document.createElement("p");
+      hint.className = "font-help";
+      hint.textContent = "Calibri and Convection use installed fonts. Readex Pro is the bundled fallback.";
+      section.append(hint);
+    }
   }
 
   // Width only applies with the minimal layout.

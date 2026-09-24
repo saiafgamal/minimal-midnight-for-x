@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Minimal Midnight For X (twitter)",
-  "description": "A quiet Midnight theme and customizable layout for X, with a choice of open-source fonts.",
+  "description": "A quiet Midnight theme and customizable layout for X, with Readex Pro and installed-font choices.",
   "version": "1.0.0",
   "permissions": ["storage"],
   "icons": {

@@ -3,9 +3,9 @@
 const root = document.documentElement;
 let settings = { ...XM_DEFAULTS };
 const FONT_FAMILIES = {
-  notoNaskhArabic: "Noto Naskh Arabic",
-  notoSansArabic: "Noto Sans Arabic",
-  notoKufiArabic: "Noto Kufi Arabic",
+  readexPro: '"Readex Pro", sans-serif',
+  calibri: 'Calibri, "Readex Pro", sans-serif',
+  convection: 'Convection, "Readex Pro", sans-serif',
 };
 
 const kebab = (key) => key.replace(/[A-Z]/g, (c) => "-" + c.toLowerCase());
@@ -16,7 +16,7 @@ function apply() {
     root.setAttribute(`data-xm-${kebab(key)}`, value);
   }
   root.style.setProperty("--xm-timeline-width", `${settings.timelineWidth}px`);
-  root.style.setProperty("--xm-font-family", `"${FONT_FAMILIES[settings.fontFamily] || FONT_FAMILIES.notoNaskhArabic}"`);
+  root.style.setProperty("--xm-font-family", FONT_FAMILIES[settings.fontFamily] || FONT_FAMILIES.readexPro);
   applyCustomCss();
   cleanTitle();
 }

@@ -1,6 +1,6 @@
 # Minimal Midnight For X (twitter)
 
-An independent, open-source Chrome extension that gives x.com a quiet Midnight palette and optional layout controls. Choose between Noto Naskh Arabic, Noto Sans Arabic, and Noto Kufi Arabic in the extension popup. The fonts are bundled, so switching fonts makes no request to Google Fonts.
+An independent, open-source Chrome extension that gives x.com a quiet Midnight palette and optional layout controls. Choose Readex Pro, Calibri, or Convection in the extension popup. Readex Pro is bundled and works offline. Calibri and Convection use fonts already installed on your device; if either is absent, the page falls back to Readex Pro.
 
 This project is not affiliated with X, Google, or Typefully. It includes no proprietary font files.
 
@@ -17,7 +17,7 @@ If you also use another X styling extension, disable one of them to avoid confli
 
 ## Fonts and licenses
 
-The 3 Noto families are from the [Google Fonts repository](https://github.com/google/fonts), each under the SIL Open Font License 1.1. Their exact license texts are in [`licenses/`](licenses). The layout work includes adaptations of [Minimal Theme for Twitter / X](https://github.com/typefully/minimal-twitter), which is MIT licensed; its notice is preserved in [`licenses/Minimal-Theme-MIT.txt`](licenses/Minimal-Theme-MIT.txt). See [third-party notices](THIRD_PARTY_NOTICES.md).
+Readex Pro is from the [Google Fonts repository](https://github.com/google/fonts/tree/main/ofl/readexpro) under the SIL Open Font License 1.1, included in [`licenses/ReadexPro-OFL.txt`](licenses/ReadexPro-OFL.txt). Calibri and Convection are not included or redistributed. The layout work includes adaptations of [Minimal Theme for Twitter / X](https://github.com/typefully/minimal-twitter), which is MIT licensed; its notice is preserved in [`licenses/Minimal-Theme-MIT.txt`](licenses/Minimal-Theme-MIT.txt). See [third-party notices](THIRD_PARTY_NOTICES.md).
 
 The original code in this repository is licensed under MIT. Third-party fonts and code retain their own licenses.
 
