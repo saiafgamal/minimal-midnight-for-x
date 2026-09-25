@@ -6,7 +6,11 @@ This project is not affiliated with X, Google, or Typefully. It includes no prop
 
 ## Screenshots
 
-These are signed-in X screenshots captured with the local extension. The framing excludes the account owner's username. The public extension uses the same colors and layout; its available fonts differ as described above.
+These are signed-in X screenshots captured with the local extension. The account owner's username is excluded or redacted. The public extension uses the same colors and layout; its available fonts differ as described above.
+
+### Home feed
+
+![Midnight Home feed with account switcher redacted](docs/images/home-feed-redacted.png)
 
 ### Home sidebar
 
