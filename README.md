@@ -6,7 +6,13 @@ This project is not affiliated with X, Google, or Typefully. It includes no prop
 
 ## Screenshots
 
-These are signed-in X screenshots captured with the local extension. Each image shows a complete post, and the framing excludes the account owner's username. The public extension uses the same colors and layout; its available fonts differ as described above.
+These are signed-in X screenshots captured with the local extension. The framing excludes the account owner's username. The public extension uses the same colors and layout; its available fonts differ as described above.
+
+### Home sidebar
+
+![Midnight navigation on X Home](docs/images/home-sidebar.png)
+
+### Complete posts
 
 [OpenAI post](https://x.com/OpenAI/status/2100679996633452747) · English
 
@@ -15,6 +21,10 @@ These are signed-in X screenshots captured with the local extension. Each image 
 [Salla post](https://x.com/SallaApp/status/2099087474400084290) · Arabic
 
 ![Complete Arabic post by Salla](docs/images/salla-ar.png)
+
+### Bookmark confirmation
+
+![Added to your Bookmarks message on a Midnight-themed post](docs/images/bookmark-confirmation.png)
 
 ## Install from source
 
