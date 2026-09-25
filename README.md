@@ -6,11 +6,15 @@ This project is not affiliated with X, Google, or Typefully. It includes no prop
 
 ## Screenshots
 
-These are signed-in X screenshots captured with the local extension. The public extension uses the same colors and layout; its available fonts differ as described above. The account owner's username has been removed from both images.
+These are signed-in X screenshots captured with the local extension. Each image shows a complete post, and the framing excludes the account owner's username. The public extension uses the same colors and layout; its available fonts differ as described above.
 
-![English example on the OpenAI account](docs/images/openai-en.png)
+[OpenAI post](https://x.com/OpenAI/status/2100679996633452747) · English
 
-![Arabic example on the Salla account](docs/images/salla-ar.png)
+![Complete English post by OpenAI](docs/images/openai-en.png)
+
+[Salla post](https://x.com/SallaApp/status/2099087474400084290) · Arabic
+
+![Complete Arabic post by Salla](docs/images/salla-ar.png)
 
 ## Install from source
 
