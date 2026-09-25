@@ -4,6 +4,14 @@ An independent, open-source Chrome extension that gives x.com a quiet Midnight p
 
 This project is not affiliated with X, Google, or Typefully. It includes no proprietary font files.
 
+## Screenshots
+
+These are signed-in X screenshots captured with the local extension. The public extension uses the same colors and layout; its available fonts differ as described above. The account owner's username has been removed from both images.
+
+![English example on the OpenAI account](docs/images/openai-en.png)
+
+![Arabic example on the Salla account](docs/images/salla-ar.png)
+
 ## Install from source
 
 1. Open `chrome://extensions` in Chrome and enable **Developer mode**.
