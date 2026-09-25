@@ -70,7 +70,7 @@ document.addEventListener("keydown", (event) => {
 
 // chrome.storage answers after X starts painting. Apply the last known
 // settings from a local copy first, so the layout does not flash.
-const CACHE_KEY = "minimal-midnight-settings";
+const CACHE_KEY = "sifr-midnight-settings";
 try {
   settings = { ...XM_DEFAULTS, ...JSON.parse(localStorage.getItem(CACHE_KEY) || "{}") };
 } catch {}

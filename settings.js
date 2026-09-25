@@ -23,11 +23,11 @@ const XM_DEFAULTS = {
   followCount: "show",
 
   // Navigation
-  navLabels: "never",
+  navLabels: "always",
   navCenter: "off",
   unreadBadge: "show",
   grokDrawer: "hide",
-  navLogo: "hide",
+  navLogo: "show",
   navHome: "show",
   navExplore: "show",
   navNotifications: "show",
@@ -45,7 +45,7 @@ const XM_DEFAULTS = {
   navProfile: "show",
 
   // Interface
-  searchBar: "show",
+  searchBar: "hide",
   transparentSearch: "off",
   titleNotifications: "show",
   postButton: "show",
