@@ -1,28 +1,253 @@
+/* Minimal Midnight palette for x.com.
+
+   X serves two frontends. The current one is built on design tokens: every
+   surface, text, border and button state (rest, hover, pressed) reads a
+   --x-* custom property. Part 1 redefines those tokens, so each state of each
+   control follows the palette without a rule per element.
+
+   The older frontend paints through atomic classes and inline RGB styles.
+   Part 3 maps those to the same palette, state by state. */
+
 :root {
   color-scheme: dark !important;
   --mmx-base: #121a30;
+  --mmx-deep: #0b1122;
   --mmx-raised: #1b2540;
   --mmx-glow: #242e4d;
-  --mmx-text: #d9e3e6;
-  --mmx-muted: #a9b8c6;
-  --mmx-line: #34425c;
   --mmx-hover: #2b3753;
+  --mmx-line: #34425c;
+  --mmx-text: #d9e3e6;
+  --mmx-text-hover: #c2ced6;
+  --mmx-text-pressed: #adbbc6;
+  --mmx-muted: #a9b8c6;
+  --mmx-faint: #7385a0;
   --mmx-accent: #af904d;
   --mmx-accent-hover: #c9ad71;
+  --mmx-accent-pressed: #d6bf8d;
   --mmx-on-accent: #121a30;
   --mmx-link: #89a6d4;
+  --mmx-link-hover: #a3bbe0;
   --mmx-like: #d79583;
+  --mmx-like-hover: #e2ad9e;
   --mmx-repost: #78b5ad;
+  --mmx-danger: #e0857a;
+  --mmx-danger-hover: #e99d93;
+  --mmx-ink: 217 227 230;
+  --mmx-navy: 18 26 48;
+  --mmx-shadow: 5 8 18;
   --mmx-font: var(--xm-font-family, "Readex Pro", sans-serif);
 }
 
-html, body, #react-root, #react-root > div,
-[data-testid="primaryColumn"],
-[data-testid="sidebarColumn"],
-[data-testid="cellInnerDiv"],
-[data-testid="tweet"],
-[role="main"],
-[role="dialog"] {
+/* ---------- 1. Current frontend: design tokens ---------- */
+
+/* X redeclares its tokens on every [data-theme] element, so the palette is
+   declared on the same elements. */
+:root,
+[data-theme],
+.dark-theme,
+.light-theme {
+  color-scheme: dark !important;
+
+  /* Surfaces. */
+  --x-bg-primary: var(--mmx-base) !important;
+  --x-bg-secondary: var(--mmx-raised) !important;
+  --x-bg-tertiary: var(--mmx-glow) !important;
+  --x-bg-quaternary: rgb(var(--mmx-ink) / 4%) !important;
+  --x-bg-sheets: var(--mmx-raised) !important;
+  --x-bg-modal: var(--mmx-raised) !important;
+  --x-bg-inputs: rgb(var(--mmx-ink) / 7%) !important;
+  --x-bg-destructive: color-mix(in srgb, var(--mmx-danger) 16%, var(--mmx-base)) !important;
+  --x-bg-success: color-mix(in srgb, var(--mmx-repost) 16%, var(--mmx-base)) !important;
+  --x-bg-info: color-mix(in srgb, var(--mmx-link) 16%, var(--mmx-base)) !important;
+  --x-bg-warning: color-mix(in srgb, var(--mmx-accent) 18%, var(--mmx-base)) !important;
+
+  /* Text. */
+  --x-fg-primary: var(--mmx-text) !important;
+  --x-fg-secondary: var(--mmx-muted) !important;
+  --x-fg-tertiary: var(--mmx-faint) !important;
+  --x-fg-inverted: var(--mmx-on-accent) !important;
+  --x-fg-on-color: var(--mmx-on-accent) !important;
+  --x-fg-on-brand: var(--mmx-on-accent) !important;
+  --x-fg-brand: var(--mmx-link) !important;
+  --x-fg-destructive: var(--mmx-danger) !important;
+  --x-fg-success: var(--mmx-repost) !important;
+  --x-fg-warning: var(--mmx-accent-hover) !important;
+  --x-brand-subtle: color-mix(in srgb, var(--mmx-link) 14%, var(--mmx-base)) !important;
+  --x-brand-wash: rgb(137 166 212 / 58%) !important;
+
+  /* Borders. */
+  --x-border-normal: var(--mmx-line) !important;
+  --x-border-divider: rgb(var(--mmx-ink) / 12%) !important;
+  --x-border-hover: rgb(var(--mmx-ink) / 24%) !important;
+  --x-border-active: rgb(var(--mmx-ink) / 34%) !important;
+  --x-border-media: rgb(var(--mmx-ink) / 6%) !important;
+  --x-border-elevated: rgb(var(--mmx-ink) / 16%) !important;
+  --x-border-destructive: var(--mmx-danger) !important;
+  --x-border-destructive-light: color-mix(in srgb, var(--mmx-danger) 40%, var(--mmx-base)) !important;
+  --x-ring: var(--mmx-link) !important;
+
+  /* Buttons, with their hover and pressed states. */
+  --x-btn-primary: var(--mmx-text) !important;
+  --x-btn-primary-hover: var(--mmx-text-hover) !important;
+  --x-btn-primary-pressed: var(--mmx-text-pressed) !important;
+  --x-btn-secondary: var(--mmx-glow) !important;
+  --x-btn-secondary-hover: var(--mmx-hover) !important;
+  --x-btn-secondary-pressed: var(--mmx-line) !important;
+  --x-btn-tertiary: rgb(var(--mmx-ink) / 9%) !important;
+  --x-btn-tertiary-hover: rgb(var(--mmx-ink) / 14%) !important;
+  --x-btn-tertiary-pressed: rgb(var(--mmx-ink) / 20%) !important;
+  --x-btn-tertiary-opaque: color-mix(in srgb, var(--mmx-text) 9%, var(--mmx-base)) !important;
+  --x-btn-tertiary-opaque-hover: color-mix(in srgb, var(--mmx-text) 14%, var(--mmx-base)) !important;
+  --x-btn-tertiary-opaque-pressed: color-mix(in srgb, var(--mmx-text) 20%, var(--mmx-base)) !important;
+  --x-btn-ghost-hover: rgb(var(--mmx-ink) / 8%) !important;
+  --x-btn-ghost-pressed: rgb(var(--mmx-ink) / 14%) !important;
+  --x-btn-inverted: var(--mmx-base) !important;
+  --x-btn-inverted-hover: var(--mmx-raised) !important;
+  --x-btn-inverted-pressed: var(--mmx-glow) !important;
+  --x-btn-brand: var(--mmx-accent) !important;
+  --x-btn-brand-hover: var(--mmx-accent-hover) !important;
+  --x-btn-brand-pressed: var(--mmx-accent-pressed) !important;
+  --x-btn-destructive: var(--mmx-danger) !important;
+  --x-btn-destructive-hover: var(--mmx-danger-hover) !important;
+  --x-btn-destructive-pressed: var(--mmx-like-hover) !important;
+
+  /* Hover washes, overlays and floating surfaces. */
+  --x-hover-subtle: rgb(var(--mmx-ink) / 7%) !important;
+  --x-hover-faint: rgb(var(--mmx-ink) / 3%) !important;
+  --x-skeleton-shimmer: rgb(var(--mmx-ink) / 6%) !important;
+  --x-overlay-normal: rgb(var(--mmx-shadow) / 50%) !important;
+  --x-overlay-strong: rgb(var(--mmx-shadow) / 78%) !important;
+  --x-toast-bg: rgb(36 46 77 / 94%) !important;
+  --x-tooltip-bg: var(--mmx-hover) !important;
+  --x-tooltip-fg: var(--mmx-text) !important;
+  --x-segmented-control-thumb: rgb(var(--mmx-ink) / 14%) !important;
+  --x-shadow-sm: 0 1px 2px rgb(var(--mmx-shadow) / 30%) !important;
+  --x-shadow-md: 0 4px 12px rgb(var(--mmx-shadow) / 40%) !important;
+  --x-shadow-lg: 0 8px 24px rgb(var(--mmx-shadow) / 48%) !important;
+  --x-shadow-toast: 0 8px 32px rgb(var(--mmx-shadow) / 55%) !important;
+  --x-shadow-popup: 0 12px 32px rgb(var(--mmx-shadow) / 55%) !important;
+
+  /* Foreground and background washes. X uses these for most hover, pressed
+     and selected states. */
+  --x-fg-alpha-00: rgb(var(--mmx-ink) / 0%) !important;
+  --x-fg-alpha-01: rgb(var(--mmx-ink) / 1%) !important;
+  --x-fg-alpha-02: rgb(var(--mmx-ink) / 2%) !important;
+  --x-fg-alpha-03: rgb(var(--mmx-ink) / 3%) !important;
+  --x-fg-alpha-04: rgb(var(--mmx-ink) / 4%) !important;
+  --x-fg-alpha-05: rgb(var(--mmx-ink) / 5%) !important;
+  --x-fg-alpha-06: rgb(var(--mmx-ink) / 6%) !important;
+  --x-fg-alpha-07: rgb(var(--mmx-ink) / 7%) !important;
+  --x-fg-alpha-08: rgb(var(--mmx-ink) / 8%) !important;
+  --x-fg-alpha-09: rgb(var(--mmx-ink) / 9%) !important;
+  --x-fg-alpha-10: rgb(var(--mmx-ink) / 10%) !important;
+  --x-fg-alpha-15: rgb(var(--mmx-ink) / 15%) !important;
+  --x-fg-alpha-20: rgb(var(--mmx-ink) / 20%) !important;
+  --x-fg-alpha-30: rgb(var(--mmx-ink) / 30%) !important;
+  --x-fg-alpha-40: rgb(var(--mmx-ink) / 40%) !important;
+  --x-fg-alpha-50: rgb(var(--mmx-ink) / 50%) !important;
+  --x-fg-alpha-60: rgb(var(--mmx-ink) / 60%) !important;
+  --x-fg-alpha-70: rgb(var(--mmx-ink) / 70%) !important;
+  --x-fg-alpha-80: rgb(var(--mmx-ink) / 80%) !important;
+  --x-fg-alpha-85: rgb(var(--mmx-ink) / 85%) !important;
+  --x-fg-alpha-90: rgb(var(--mmx-ink) / 90%) !important;
+  --x-fg-alpha-95: rgb(var(--mmx-ink) / 95%) !important;
+  --x-fg-alpha-100: var(--mmx-text) !important;
+  --x-bg-alpha-00: rgb(var(--mmx-navy) / 0%) !important;
+  --x-bg-alpha-01: rgb(var(--mmx-navy) / 1%) !important;
+  --x-bg-alpha-02: rgb(var(--mmx-navy) / 2%) !important;
+  --x-bg-alpha-03: rgb(var(--mmx-navy) / 3%) !important;
+  --x-bg-alpha-04: rgb(var(--mmx-navy) / 4%) !important;
+  --x-bg-alpha-05: rgb(var(--mmx-navy) / 5%) !important;
+  --x-bg-alpha-06: rgb(var(--mmx-navy) / 6%) !important;
+  --x-bg-alpha-07: rgb(var(--mmx-navy) / 7%) !important;
+  --x-bg-alpha-08: rgb(var(--mmx-navy) / 8%) !important;
+  --x-bg-alpha-09: rgb(var(--mmx-navy) / 9%) !important;
+  --x-bg-alpha-10: rgb(var(--mmx-navy) / 10%) !important;
+  --x-bg-alpha-15: rgb(var(--mmx-navy) / 15%) !important;
+  --x-bg-alpha-20: rgb(var(--mmx-navy) / 20%) !important;
+  --x-bg-alpha-30: rgb(var(--mmx-navy) / 30%) !important;
+  --x-bg-alpha-40: rgb(var(--mmx-navy) / 40%) !important;
+  --x-bg-alpha-50: rgb(var(--mmx-navy) / 50%) !important;
+  --x-bg-alpha-60: rgb(var(--mmx-navy) / 60%) !important;
+  --x-bg-alpha-70: rgb(var(--mmx-navy) / 70%) !important;
+  --x-bg-alpha-80: rgb(var(--mmx-navy) / 80%) !important;
+  --x-bg-alpha-85: rgb(var(--mmx-navy) / 85%) !important;
+  --x-bg-alpha-90: rgb(var(--mmx-navy) / 90%) !important;
+  --x-bg-alpha-95: rgb(var(--mmx-navy) / 95%) !important;
+  --x-bg-alpha-100: var(--mmx-base) !important;
+
+  /* X's fixed white and black: labels on filled buttons, scrims over media,
+     the photo viewer. Softened to the palette's lightest and darkest. */
+  --x-white: var(--mmx-text) !important;
+  --x-black: var(--mmx-deep) !important;
+
+  /* Neutral ramp, lightest to darkest, tinted navy. */
+  --x-neutral-000: #e9eef1 !important;
+  --x-neutral-050: #dfe6ea !important;
+  --x-neutral-100: #cdd7de !important;
+  --x-neutral-200: #bcc8d3 !important;
+  --x-neutral-300: #a3b1c1 !important;
+  --x-neutral-400: #8a9aae !important;
+  --x-neutral-500: #73849b !important;
+  --x-neutral-600: #5c6c87 !important;
+  --x-neutral-700: #465570 !important;
+  --x-neutral-800: #34425c !important;
+  --x-neutral-900: #242e4d !important;
+  --x-neutral-1000: #1b2540 !important;
+  --x-neutral-1100: #161f38 !important;
+
+  /* Accent ramps. X blue becomes slate blue, likes coral, reposts teal, and
+     errors a soft red. Steps run dark to light, as in X's dark theme. */
+  --x-blue-000: #161f38 !important;
+  --x-blue-050: #1a2542 !important;
+  --x-blue-100: #23335a !important;
+  --x-blue-200: #344a7a !important;
+  --x-blue-300: #4b6599 !important;
+  --x-blue-400: #6a86b8 !important;
+  --x-blue-500: var(--mmx-link) !important;
+  --x-blue-600: var(--mmx-link-hover) !important;
+  --x-blue-700: #b7cae7 !important;
+  --x-blue-800: #cad8ee !important;
+  --x-blue-900: #dbe5f4 !important;
+  --x-blue-1000: #e8eef8 !important;
+  --x-blue-1100: #f2f6fb !important;
+  --x-magenta-400: #c27d6b !important;
+  --x-magenta-500: var(--mmx-like) !important;
+  --x-magenta-600: var(--mmx-like-hover) !important;
+  --x-green-400: #5f9d95 !important;
+  --x-green-500: var(--mmx-repost) !important;
+  --x-green-600: #93c8c1 !important;
+  --x-red-050: color-mix(in srgb, var(--mmx-danger) 16%, var(--mmx-base)) !important;
+  --x-red-100: color-mix(in srgb, var(--mmx-danger) 28%, var(--mmx-base)) !important;
+  --x-red-400: #cc6c61 !important;
+  --x-red-500: var(--mmx-danger) !important;
+  --x-red-600: var(--mmx-danger-hover) !important;
+  --x-red-700: #f0b5ad !important;
+}
+
+/* The sign-in and onboarding screens keep their own short token list, as
+   HSL channels. Their literal colors are handled by recolor.js. */
+.jetfuel-style-root,
+.jf-element[data-theme] {
+  --color-background: 224 45% 13% !important;
+  --color-text: 194 21% 88% !important;
+  --color-gray-100: 194 21% 88% !important;
+  --color-gray-200: 204 20% 80% !important;
+  --color-gray-300: 209 20% 72% !important;
+  --color-gray-400: 209 20% 72% !important;
+  --color-gray-500: 216 19% 54% !important;
+  --color-blue-100: 222 32% 25% !important;
+  --color-blue-200: 219 28% 28% !important;
+  --color-blue-500: 217 47% 68% !important;
+  --color-red-500: 6 62% 68% !important;
+  --color-green-500: 172 29% 59% !important;
+  --color-drop-shadow: 5 8 18 !important;
+}
+
+/* ---------- 2. Both frontends ---------- */
+
+html,
+body {
   background-color: var(--mmx-base) !important;
   color: var(--mmx-text) !important;
 }
@@ -36,23 +261,78 @@ body, body *:not(svg):not(path):not(video):not(canvas) {
   font-family: var(--mmx-font) !important;
 }
 
-/* X paints much of its interface through inline RGB styles. Restrict the
-   overrides to known surface colors so media and account artwork survive. */
-[style*="background-color: rgb(0, 0, 0)"],
-[style*="background-color: rgb(21, 32, 43)"],
-[style*="background-color: rgb(22, 24, 28)"],
-[style*="background-color: rgb(255, 255, 255)"],
-[style*="background-color: rgb(247, 249, 249)"],
-[class~="r-14lw9ot"],
+::placeholder {
+  color: var(--mmx-muted) !important;
+  opacity: 1;
+}
+
+::selection {
+  background: var(--mmx-accent-hover);
+  color: var(--mmx-on-accent);
+}
+
+input,
+textarea {
+  color: var(--mmx-text) !important;
+  caret-color: var(--mmx-link) !important;
+}
+
+/* Chrome paints autofilled fields pale yellow with black text. */
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+  -webkit-text-fill-color: var(--mmx-text) !important;
+  box-shadow: 0 0 0 100px var(--mmx-raised) inset !important;
+}
+
+/* Thin, quiet scrollbars. */
+html {
+  scrollbar-color: var(--mmx-line) transparent;
+}
+
+/* ---------- 3. Older frontend: atomic classes and inline styles ---------- */
+
+#react-root, #react-root > div,
+[data-testid="primaryColumn"],
+[data-testid="sidebarColumn"],
+[data-testid="cellInnerDiv"],
+[data-testid="tweet"],
+#react-root [role="main"],
+#react-root [role="dialog"] {
+  background-color: var(--mmx-base) !important;
+  color: var(--mmx-text) !important;
+}
+
+/* Page surfaces: white (light), navy (dim) and black (lights out). X stacks
+   several page-colored layers inside every panel, so each takes the surface
+   of the panel it sits in: --mmx-surface, set on popovers further down.
+   recolor.js applies the same rule to the atomic classes. */
+#react-root [style*="background-color: rgb(0, 0, 0)"],
+#react-root [style*="background-color: rgb(21, 32, 43)"],
+#react-root [style*="background-color: rgb(255, 255, 255)"],
+#react-root [style*="background-color: rgb(247, 249, 249)"],
+#react-root .r-14lw9ot {
+  background-color: var(--mmx-surface, var(--mmx-base)) !important;
+}
+
 [data-testid="primaryColumn"] > div,
 [data-testid="sidebarColumn"] > div {
   background-color: var(--mmx-base) !important;
 }
 
-/* The timeline header uses a translucent white class rather than a solid
-   surface. Keep its translucency, with a Midnight tint. */
-[data-testid="primaryColumn"] [class~="r-1e5uvyk"] {
-  background-color: rgb(18 26 48 / 92%) !important;
+/* Raised surfaces: cards, the search field, sidebar modules. */
+#react-root [style*="background-color: rgb(22, 24, 28)"],
+#react-root [style*="background-color: rgb(32, 35, 39)"],
+#react-root [style*="background-color: rgb(30, 39, 50)"],
+#react-root [style*="background-color: rgb(39, 51, 64)"],
+#react-root [style*="background-color: rgb(239, 243, 244)"]:not([role="button"], button, a),
+#react-root .r-x572qd {
+  background-color: var(--mmx-raised) !important;
+}
+
+/* The timeline header uses a translucent class rather than a solid surface.
+   Keep its translucency, with a Midnight tint. */
+[data-testid="primaryColumn"] .r-1e5uvyk {
+  background-color: rgb(var(--mmx-navy) / 92%) !important;
 }
 
 nav a,
@@ -72,33 +352,45 @@ h1 svg,
 [data-testid="primaryColumn"],
 [data-testid="sidebarColumn"],
 [data-testid="cellInnerDiv"],
-[role="tablist"],
+#react-root [role="tablist"],
 [data-testid="tweet"] {
   border-color: var(--mmx-line) !important;
 }
 
 [data-testid="cellInnerDiv"] > div {
-  border-bottom-color: rgb(217 227 230 / 12%) !important;
+  border-bottom-color: rgb(var(--mmx-ink) / 12%) !important;
 }
 
-[role="dialog"],
-[data-testid="Dropdown"],
-[data-testid="SearchBox_Search_Input"],
-input, textarea {
+#react-root [role="dialog"],
+[data-testid="Dropdown"] {
   background-color: var(--mmx-raised) !important;
   color: var(--mmx-text) !important;
   border-color: var(--mmx-line) !important;
 }
 
-[style*="color: rgb(231, 233, 234)"],
-[style*="color: rgb(15, 20, 25)"],
-[style*="color: rgb(247, 249, 249)"] {
+/* The search field and its suggestions are one raised panel. The input
+   itself stays clear, so it does not show as a slab inside the field. */
+#react-root form[role="search"] {
+  --mmx-surface: var(--mmx-raised);
+}
+
+#react-root form[role="search"] input {
+  background-color: transparent !important;
+}
+
+/* Text. */
+#react-root [style*="color: rgb(231, 233, 234)"],
+#react-root [style*="color: rgb(15, 20, 25)"],
+#react-root [style*="color: rgb(247, 249, 249)"],
+#react-root [style*="color: rgb(239, 243, 244)"],
+#react-root :is(.r-18jsvk2, .r-54znze) {
   color: var(--mmx-text) !important;
 }
 
-[style*="color: rgb(113, 118, 123)"],
-[style*="color: rgb(139, 152, 165)"],
-[style*="color: rgb(83, 100, 113)"] {
+#react-root [style*="color: rgb(113, 118, 123)"],
+#react-root [style*="color: rgb(139, 152, 165)"],
+#react-root [style*="color: rgb(83, 100, 113)"],
+#react-root .r-14j79pv {
   color: var(--mmx-muted) !important;
 }
 
@@ -109,13 +401,29 @@ input, textarea {
 }
 
 [data-testid="tweetText"] a,
-a[href^="/hashtag/"],
-a[href^="/search?"] {
+#react-root a[href^="/hashtag/"],
+#react-root a[href^="/search?"] {
   color: var(--mmx-link) !important;
 }
 
-[role="tab"]:hover {
+/* Rows and tabs: X's gray hover washes, in every theme. */
+#react-root [role="tab"]:hover,
+#react-root [style*="background-color: rgba(231, 233, 234, 0.1)"],
+#react-root [style*="background-color: rgba(239, 243, 244, 0.1)"],
+#react-root [style*="background-color: rgba(247, 249, 249, 0.1)"],
+#react-root [style*="background-color: rgba(255, 255, 255, 0.03)"],
+#react-root [style*="background-color: rgba(255, 255, 255, 0.1)"],
+#react-root [style*="background-color: rgba(15, 20, 25, 0.1)"],
+#react-root [style*="background-color: rgba(0, 0, 0, 0.03)"],
+#react-root :is(.r-1ydqjzz, .r-h9yrwi) {
   background-color: var(--mmx-hover) !important;
+}
+
+#react-root [style*="background-color: rgba(231, 233, 234, 0.2)"],
+#react-root [style*="background-color: rgba(239, 243, 244, 0.2)"],
+#react-root [style*="background-color: rgba(255, 255, 255, 0.2)"],
+#react-root [style*="background-color: rgba(15, 20, 25, 0.2)"] {
+  background-color: var(--mmx-line) !important;
 }
 
 [data-testid="cellInnerDiv"]:hover,
@@ -127,68 +435,139 @@ a[href^="/search?"] {
   background-color: transparent !important;
 }
 
-::placeholder {
-  color: var(--mmx-muted) !important;
-  opacity: 1;
-}
-
-::selection {
-  background: var(--mmx-accent-hover);
-  color: var(--mmx-on-accent);
-}
-
 /* X accent colors. X blue becomes Midnight slate blue, likes become coral,
    reposts become teal. Only the compose Post button takes the gold fill. */
-[style*="color: rgb(29, 155, 240)"],
+#react-root [style*="color: rgb(29, 155, 240)"],
+#react-root .r-1cvl2hr,
 [data-testid="icon-verified"] {
   color: var(--mmx-link) !important;
+}
+
+[data-testid="icon-verified"] {
   fill: var(--mmx-link) !important;
 }
 
-[style*="background-color: rgb(29, 155, 240)"] {
+/* Blue fills, at rest, hovered and pressed. */
+#react-root [style*="background-color: rgb(29, 155, 240)"],
+#react-root .r-l5o3uw {
   background-color: var(--mmx-link) !important;
 }
 
-[style*="border-color: rgb(29, 155, 240)"] {
+#react-root [style*="background-color: rgb(26, 140, 216)"],
+#react-root [style*="background-color: rgb(23, 124, 192)"] {
+  background-color: var(--mmx-link-hover) !important;
+}
+
+#react-root [style*="border-color: rgb(29, 155, 240)"],
+#react-root :is(.r-vhj8yc, .r-1kqyzh3, .r-1khm80z) {
   border-color: var(--mmx-link) !important;
 }
 
-[style*="background-color: rgba(29, 155, 240, 0.1)"],
-[style*="background-color: rgba(29, 155, 240, 0.2)"] {
+#react-root [style*="background-color: rgba(29, 155, 240, 0.1)"],
+#react-root [style*="background-color: rgba(29, 155, 240, 0.2)"],
+#react-root :is(.r-1peqgm7, .r-1w2mbsr, .r-r18ze4) {
   background-color: rgb(137 166 212 / 14%) !important;
 }
 
-[style*="color: rgb(249, 24, 128)"],
+#react-root [style*="color: rgb(249, 24, 128)"],
+#react-root .r-vkub15,
 [data-testid="unlike"] {
   color: var(--mmx-like) !important;
 }
 
-[style*="background-color: rgba(249, 24, 128, 0.1)"] {
+#react-root [style*="background-color: rgba(249, 24, 128, 0.1)"],
+#react-root [style*="background-color: rgba(249, 24, 128, 0.2)"] {
   background-color: rgb(215 149 131 / 14%) !important;
 }
 
-[style*="color: rgb(0, 186, 124)"],
+#react-root [style*="color: rgb(0, 186, 124)"],
+#react-root .r-o6sn0f,
 [data-testid="unretweet"] {
   color: var(--mmx-repost) !important;
 }
 
-[style*="background-color: rgba(0, 186, 124, 0.1)"] {
+#react-root [style*="background-color: rgba(0, 186, 124, 0.1)"],
+#react-root [style*="background-color: rgba(0, 186, 124, 0.2)"],
+#react-root .r-15azkrj {
   background-color: rgb(120 181 173 / 14%) !important;
 }
 
-/* Light-filled buttons such as Follow. Keep them filled, with navy text,
-   so they do not turn into light text on a light fill. */
-[style*="background-color: rgb(239, 243, 244)"],
-[style*="background-color: rgb(15, 20, 25)"] {
+/* Filled buttons such as Follow: light in X's dark themes, dark in its light
+   theme. X swaps the inline fill on hover and press, so each state is listed;
+   the label stays navy in all of them. */
+#react-root :is(button, a, [role="button"]):is(
+  [style*="background-color: rgb(239, 243, 244)"],
+  [style*="background-color: rgb(15, 20, 25)"]),
+#react-root .r-1m3jxhj {
   background-color: var(--mmx-text) !important;
   border-color: transparent !important;
 }
 
-[style*="background-color: rgb(239, 243, 244)"] *,
-[style*="background-color: rgb(15, 20, 25)"] * {
+#react-root [style*="background-color: rgb(215, 219, 220)"],
+#react-root [style*="background-color: rgb(39, 44, 48)"] {
+  background-color: var(--mmx-text-hover) !important;
+  border-color: transparent !important;
+}
+
+#react-root [style*="background-color: rgb(191, 195, 196)"],
+#react-root [style*="background-color: rgb(63, 67, 71)"] {
+  background-color: var(--mmx-text-pressed) !important;
+  border-color: transparent !important;
+}
+
+#react-root :is(button, a, [role="button"]):is(
+  [style*="background-color: rgb(239, 243, 244)"],
+  [style*="background-color: rgb(15, 20, 25)"]) *,
+#react-root :is(
+  [style*="background-color: rgb(215, 219, 220)"],
+  [style*="background-color: rgb(39, 44, 48)"],
+  [style*="background-color: rgb(191, 195, 196)"],
+  [style*="background-color: rgb(63, 67, 71)"]) *,
+#react-root .r-1m3jxhj * {
   color: var(--mmx-on-accent) !important;
 }
 
+/* Outline buttons such as Edit profile and Following. */
+#react-root [style*="border-color: rgb(207, 217, 222)"],
+#react-root [style*="border-color: rgb(83, 100, 113)"],
+#react-root [style*="border-color: rgb(47, 51, 54)"],
+#react-root [style*="border-color: rgb(56, 68, 77)"],
+#react-root [style*="border-color: rgba(15, 20, 25, 0.1)"] {
+  border-color: var(--mmx-line) !important;
+}
+
+/* Unfollow and other destructive hover states. */
+#react-root [style*="border-color: rgb(103, 7, 15)"],
+#react-root [style*="border-color: rgb(253, 201, 206)"] {
+  border-color: rgb(224 133 122 / 55%) !important;
+}
+
+#react-root [style*="background-color: rgba(244, 33, 46, 0.1)"],
+#react-root [style*="background-color: rgba(244, 33, 46, 0.2)"] {
+  background-color: rgb(224 133 122 / 14%) !important;
+}
+
+#react-root [style*="color: rgb(244, 33, 46)"] {
+  color: var(--mmx-danger) !important;
+}
+
+#react-root [style*="background-color: rgb(244, 33, 46)"] {
+  background-color: var(--mmx-danger) !important;
+}
+
+#react-root [style*="background-color: rgb(220, 30, 41)"],
+#react-root [style*="background-color: rgb(195, 26, 37)"] {
+  background-color: var(--mmx-danger-hover) !important;
+}
+
+#react-root :is(
+  [style*="background-color: rgb(244, 33, 46)"],
+  [style*="background-color: rgb(220, 30, 41)"],
+  [style*="background-color: rgb(195, 26, 37)"]) * {
+  color: var(--mmx-on-accent) !important;
+}
+
+/* The Post button. */
 [data-testid="SideNav_NewTweet_Button"],
 [data-testid="tweetButtonInline"],
 [data-testid="tweetButton"] {
@@ -202,117 +581,78 @@ a[href^="/search?"] {
   background-color: var(--mmx-accent-hover) !important;
 }
 
+[data-testid="SideNav_NewTweet_Button"]:active,
+[data-testid="tweetButtonInline"]:active,
+[data-testid="tweetButton"]:active {
+  background-color: var(--mmx-accent-pressed) !important;
+}
+
 [data-testid="SideNav_NewTweet_Button"] *,
 [data-testid="tweetButtonInline"] *,
 [data-testid="tweetButton"] * {
   color: var(--mmx-on-accent) !important;
 }
 
-/* Light-mode X paints most colors through atomic classes, not inline styles.
-   Map those classes to Midnight tokens. Borders and dividers go quiet. */
-.r-jxzhtn, .r-1ets6dv, .r-1d6w8o1, .r-1mr45hq, .r-1ccsd61,
-.r-113pe33, .r-1lsmntn, .r-1dgieki, .r-j5o65s,
-[style*="border-bottom: 2px solid rgb(15, 20, 25)"] {
-  border-color: var(--mmx-line) !important;
-}
-
-.r-1sw30gj, .r-1bimlpy {
-  background-color: var(--mmx-line) !important;
-}
-
-.r-x572qd {
-  background-color: var(--mmx-raised) !important;
-}
-
-.r-18jsvk2, .r-54znze {
-  color: var(--mmx-text) !important;
-}
-
-.r-14j79pv {
-  color: var(--mmx-muted) !important;
-}
-
-.r-1cvl2hr {
-  color: var(--mmx-link) !important;
-}
-
-.r-vhj8yc, .r-1kqyzh3, .r-1khm80z {
-  border-color: var(--mmx-link) !important;
-}
-
-.r-l5o3uw {
-  background-color: var(--mmx-link) !important;
-}
-
-.r-1peqgm7, .r-1w2mbsr, .r-r18ze4 {
-  background-color: rgb(137 166 212 / 14%) !important;
-}
-
-.r-vkub15 {
-  color: var(--mmx-like) !important;
-}
-
-.r-o6sn0f {
-  color: var(--mmx-repost) !important;
-}
-
-.r-15azkrj {
-  background-color: rgb(120 181 173 / 14%) !important;
-}
-
-.r-1ydqjzz, .r-h9yrwi {
-  background-color: var(--mmx-hover) !important;
-}
-
-/* Dark-filled buttons such as Follow in light mode. */
-.r-1m3jxhj {
-  background-color: var(--mmx-text) !important;
-}
-
-.r-1m3jxhj * {
-  color: var(--mmx-on-accent) !important;
-}
-
 /* Disabled Post button: a quiet raised navy, not half-transparent gold. */
-[data-testid="tweetButtonInline"][disabled],
-[data-testid="tweetButtonInline"][aria-disabled="true"],
-[data-testid="tweetButton"][disabled],
-[data-testid="tweetButton"][aria-disabled="true"] {
+:is([data-testid="tweetButtonInline"], [data-testid="tweetButton"]):is([disabled], [aria-disabled="true"]) {
   background-color: var(--mmx-raised) !important;
   border: 1px solid var(--mmx-line) !important;
   opacity: 1 !important;
 }
 
-[data-testid="tweetButtonInline"][disabled] *,
-[data-testid="tweetButtonInline"][aria-disabled="true"] *,
-[data-testid="tweetButton"][disabled] *,
-[data-testid="tweetButton"][aria-disabled="true"] * {
+:is([data-testid="tweetButtonInline"], [data-testid="tweetButton"]):is([disabled], [aria-disabled="true"]) * {
   color: var(--mmx-muted) !important;
+}
+
+/* Borders and dividers painted through atomic classes. */
+#react-root :is(.r-jxzhtn, .r-1ets6dv, .r-1d6w8o1, .r-1mr45hq, .r-1ccsd61,
+  .r-113pe33, .r-1lsmntn, .r-1dgieki, .r-j5o65s, .r-1wo6uvp),
+#react-root [style*="border-bottom: 2px solid rgb(15, 20, 25)"] {
+  border-color: var(--mmx-line) !important;
+}
+
+#react-root :is(.r-1sw30gj, .r-1bimlpy) {
+  background-color: var(--mmx-line) !important;
 }
 
 /* Menus, hover cards and popovers: lift them off the page with a raised
    surface, a quiet border and a dark shadow in place of X's light glow. */
-[role="menu"],
+#react-root [role="menu"],
 [data-testid="HoverCard"],
 [data-testid="Dropdown"],
 [data-testid="typeaheadDropdown"] {
   background-color: var(--mmx-raised) !important;
   border: 1px solid var(--mmx-line) !important;
-  box-shadow: 0 12px 32px rgb(5 8 18 / 55%) !important;
+  box-shadow: 0 12px 32px rgb(var(--mmx-shadow) / 55%) !important;
 }
 
-[role="menu"] [role="menuitem"]:hover,
-[data-testid="Dropdown"] [role="menuitem"]:hover {
+/* Every page-colored layer inside a popover or dialog takes its surface. */
+#react-root [role="menu"],
+#react-root [role="dialog"],
+[data-testid="HoverCard"],
+[data-testid="Dropdown"],
+[data-testid="typeaheadDropdown"],
+[data-testid="toast"] {
+  --mmx-surface: var(--mmx-raised);
+}
+
+#react-root [role="menu"] [role="menuitem"]:hover,
+[data-testid="Dropdown"] [role="menuitem"]:hover,
+[data-testid="typeaheadDropdown"] [role="option"]:hover,
+[data-testid="typeaheadDropdown"] [data-testid="typeaheadResult"]:hover {
   background-color: var(--mmx-hover) !important;
 }
 
 /* Filled slate-blue pills and badges (new posts pill, unread counts) carry
    white text in X. White on slate fails contrast, so use navy. */
-.r-l5o3uw,
-.r-l5o3uw *,
+#react-root .r-l5o3uw,
+#react-root .r-l5o3uw *,
 [data-testid="pillLabel"],
 [data-testid="pillLabel"] *,
-[style*="background-color: rgb(29, 155, 240)"] * {
+#react-root :is(
+  [style*="background-color: rgb(29, 155, 240)"],
+  [style*="background-color: rgb(26, 140, 216)"],
+  [style*="background-color: rgb(23, 124, 192)"]) * {
   color: var(--mmx-on-accent) !important;
 }
 
@@ -325,32 +665,16 @@ header[role="banner"] nav a svg + div[aria-label] {
   color: var(--mmx-muted) !important;
 }
 
-/* Outline buttons such as Edit profile and Follow in lists. */
-[style*="border-color: rgb(207, 217, 222)"],
-[style*="border-color: rgb(83, 100, 113)"],
-[style*="border-color: rgba(15, 20, 25, 0.1)"],
-.r-1ets6dv,
-.r-1wo6uvp {
-  border-color: var(--mmx-line) !important;
-}
-
 /* Empty profile banner and image placeholders. */
-[style*="background-color: rgb(207, 217, 222)"] {
-  background-color: var(--mmx-raised) !important;
-}
-
-/* X's red for errors, delete and live badges. */
-[style*="color: rgb(244, 33, 46)"] {
-  color: var(--mmx-like) !important;
-}
-
-[style*="background-color: rgb(244, 33, 46)"] {
-  background-color: var(--mmx-like) !important;
+#react-root [style*="background-color: rgb(207, 217, 222)"],
+#react-root [style*="background-color: rgb(51, 54, 57)"],
+#react-root [style*="background-color: rgb(61, 84, 102)"] {
+  background-color: var(--mmx-glow) !important;
 }
 
 /* Toasts. */
 [data-testid="toast"] {
-  background-color: var(--mmx-raised) !important;
+  background-color: var(--mmx-glow) !important;
   border: 1px solid var(--mmx-line) !important;
   color: var(--mmx-text) !important;
 }
@@ -380,9 +704,4 @@ header[role="banner"] nav a svg + div[aria-label] {
 [data-testid="videoComponent"] div:has(> [aria-label="Volume slider"]) > .r-1pz39u2,
 [data-testid="videoComponent"] [aria-label="Volume slider"] > div {
   background-color: var(--mmx-accent) !important;
-}
-
-/* Thin, quiet scrollbars. */
-html {
-  scrollbar-color: var(--mmx-line) transparent;
 }

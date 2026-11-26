@@ -51,4 +51,11 @@ The original code in this repository is licensed under MIT. Third-party fonts an
 
 This extension uses Manifest V3 and has no build step. After editing source files, click **Reload** on its card at `chrome://extensions`, then reload x.com. Keep `manifest.json` at the root of the extension folder.
 
+X currently serves two frontends, and the theme covers both:
+
+- The current frontend reads its colors from design tokens (`--x-bg-primary`, `--x-btn-primary-hover` and so on). `midnight.css` redefines those tokens, so every state of every control follows the palette. To change a color, change the token, not an element.
+- The sign-in screens and the older frontend write literal colors into generated class names. `recolor.js` reads those rules and answers each color with its Midnight equivalent, so no class names are listed by hand. The older frontend's inline styles are mapped in the last part of `midnight.css`.
+
+The layout options in the popup (`features.css`) target the older frontend's markup.
+
 X changes its markup frequently. If a selector stops matching, open an issue with the affected page and a screenshot that contains no private information.

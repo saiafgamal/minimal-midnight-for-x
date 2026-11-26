@@ -108,5 +108,11 @@ new MutationObserver(() => {
     trackPage();
     cleanTitle();
     addWriterButton();
+    mmxRecolor();
   });
 }).observe(root, { childList: true, subtree: true });
+
+// Stylesheets that finish loading without changing the DOM.
+mmxRecolor();
+document.addEventListener("DOMContentLoaded", mmxRecolor);
+window.addEventListener("load", mmxRecolor);
