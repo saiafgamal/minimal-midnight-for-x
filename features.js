@@ -116,6 +116,11 @@ new MutationObserver(() => {
   });
 }).observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ["class"] });
 
+// Lets background.js check for a newer version of the extension.
+try {
+  chrome.runtime.sendMessage("mmx-page-opened").catch(() => {});
+} catch {}
+
 // Stylesheets that finish loading without changing the DOM.
 mmxRecolor();
 document.addEventListener("DOMContentLoaded", mmxRecolor);
