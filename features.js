@@ -98,6 +98,9 @@ chrome.storage.onChanged.addListener((changes, area) => {
 });
 
 // X mutates the DOM constantly. Run the checks at most once per frame.
+// Class changes are watched too: on hover and press X swaps a class and
+// inserts that class's rule without adding a node, and recolor.js has to
+// answer the new rule before the frame is painted.
 let queued = false;
 trackPage();
 new MutationObserver(() => {
@@ -109,8 +112,9 @@ new MutationObserver(() => {
     cleanTitle();
     addWriterButton();
     mmxRecolor();
+    mmxShadows();
   });
-}).observe(root, { childList: true, subtree: true });
+}).observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ["class"] });
 
 // Stylesheets that finish loading without changing the DOM.
 mmxRecolor();

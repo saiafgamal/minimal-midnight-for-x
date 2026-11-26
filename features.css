@@ -46,7 +46,7 @@ html[data-xm-minimal-layout="on"] [data-testid="chat-drawer-root"] {
     position: fixed !important;
     right: 16px !important;
     bottom: 24px !important;
-    box-shadow: 0 8px 24px rgb(0 0 0 / 35%) !important;
+    box-shadow: 0 8px 24px rgb(var(--mmx-shadow) / 45%) !important;
   }
 
   html[data-xm-minimal-layout="on"]:not([data-xm-page="search"]) [data-testid="sidebarColumn"] {
@@ -264,22 +264,24 @@ html[data-xm-grok-drawer="hide"] [data-testid="GrokDrawer"] {
   display: none !important;
 }
 
+/* X moved the less used destinations from the side navigation into its More
+   menu, the one that ends in Settings. Hide them in either place. */
 html[data-xm-nav-logo="hide"] header[role="banner"] h1[role="heading"],
 html[data-xm-nav-home="hide"] [data-testid="AppTabBar_Home_Link"],
 html[data-xm-nav-explore="hide"] [data-testid="AppTabBar_Explore_Link"],
 html[data-xm-nav-notifications="hide"] [data-testid="AppTabBar_Notifications_Link"],
 html[data-xm-nav-messages="hide"] [data-testid="AppTabBar_DirectMessage_Link"],
-html[data-xm-nav-grok="hide"] header[role="banner"] a[href*="/grok"],
-html[data-xm-nav-history="hide"] header[role="banner"] a[href="/i/history"],
-html[data-xm-nav-creator-studio="hide"] header[role="banner"] a[href*="/creators/studio"],
-html[data-xm-nav-premium="hide"] header[role="banner"] a[href*="premium"],
+html[data-xm-nav-grok="hide"] :is(header[role="banner"], [role="menu"]:has([data-testid="settings"])) a[href*="/grok"],
+html[data-xm-nav-history="hide"] :is(header[role="banner"], [role="menu"]:has([data-testid="settings"])) a[href="/i/history"],
+html[data-xm-nav-creator-studio="hide"] :is(header[role="banner"], [role="menu"]:has([data-testid="settings"])) a[href*="/creators/studio"],
+html[data-xm-nav-premium="hide"] :is(header[role="banner"], [role="menu"]:has([data-testid="settings"])) a[href*="premium"],
 html[data-xm-nav-premium="hide"] [data-testid="premium-signup-tab"],
-html[data-xm-nav-bookmarks="hide"] header[role="banner"] a[href*="/bookmarks"],
-html[data-xm-nav-lists="hide"] header[role="banner"] a[href*="/lists"],
-html[data-xm-nav-communities="hide"] header[role="banner"] a[href*="/communities"],
-html[data-xm-nav-jobs="hide"] header[role="banner"] a[href*="/jobs"],
-html[data-xm-nav-articles="hide"] header[role="banner"] a[href*="/articles"],
-html[data-xm-nav-verified-orgs="hide"] header[role="banner"] a[href*="verified-orgs"],
+html[data-xm-nav-bookmarks="hide"] :is(header[role="banner"], [role="menu"]:has([data-testid="settings"])) a[href*="/bookmarks"],
+html[data-xm-nav-lists="hide"] :is(header[role="banner"], [role="menu"]:has([data-testid="settings"])) a[href*="/lists"],
+html[data-xm-nav-communities="hide"] :is(header[role="banner"], [role="menu"]:has([data-testid="settings"])) a[href*="/communities"],
+html[data-xm-nav-jobs="hide"] :is(header[role="banner"], [role="menu"]:has([data-testid="settings"])) a[href*="/jobs"],
+html[data-xm-nav-articles="hide"] :is(header[role="banner"], [role="menu"]:has([data-testid="settings"])) a[href*="/articles"],
+html[data-xm-nav-verified-orgs="hide"] :is(header[role="banner"], [role="menu"]:has([data-testid="settings"])) a[href*="verified-orgs"],
 html[data-xm-nav-profile="hide"] [data-testid="AppTabBar_Profile_Link"] {
   display: none !important;
 }

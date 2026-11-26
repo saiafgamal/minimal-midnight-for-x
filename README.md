@@ -55,7 +55,11 @@ X currently serves two frontends, and the theme covers both:
 
 - The current frontend reads its colors from design tokens (`--x-bg-primary`, `--x-btn-primary-hover` and so on). `midnight.css` redefines those tokens, so every state of every control follows the palette. To change a color, change the token, not an element.
 - The sign-in screens and the older frontend write literal colors into generated class names. `recolor.js` reads those rules and answers each color with its Midnight equivalent, so no class names are listed by hand. The older frontend's inline styles are mapped in the last part of `midnight.css`.
+- The older frontend's colors mean different things in X's light and dark themes: near-white is the page in the light theme and a filled button such as Follow in the dark ones. X writes its theme on `<html>` (`color-scheme`) and `<body>` (the page color), and both `recolor.js` and the theme-dependent rules in `midnight.css` read it.
+- On hover and press X swaps a class and inserts that class's rule without adding a node, so `features.js` watches class changes as well, and `recolor.js` answers the new rule before the frame is painted.
+- Inside menus, dropdowns and hover cards, X marks a highlighted row with the same color it uses for raised surfaces. Such layers read `--mmx-lift`, which is raised on the panel's own sheet and one step lighter inside it.
+- Chat is mounted in an open shadow root that a page stylesheet cannot reach. `recolor.js` adopts `midnight.css` into each open shadow root, with `:root` read as the host.
 
-The layout options in the popup (`features.css`) target the older frontend's markup.
+The layout options in the popup (`features.css`) target the older frontend's markup. Destinations that X moved from the side navigation into its More menu are hidden there too.
 
 X changes its markup frequently. If a selector stops matching, open an issue with the affected page and a screenshot that contains no private information.

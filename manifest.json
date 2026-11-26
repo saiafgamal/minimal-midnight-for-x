@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Minimal Midnight For X (twitter)",
   "description": "A quiet Midnight theme and customizable layout for X, with Readex Pro and installed-font choices.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "permissions": ["storage"],
   "icons": {
     "16": "icons/icon-16.png",
@@ -30,7 +30,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["fonts/*.ttf"],
+      "resources": ["fonts/*.ttf", "midnight.css"],
       "matches": ["https://x.com/*", "https://www.x.com/*"]
     }
   ]
